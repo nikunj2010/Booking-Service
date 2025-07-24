@@ -34,4 +34,14 @@ public class BookingExceptionHandler {
 				);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
 	}
+	
+	@ExceptionHandler(BookingCancelException.class)
+	public ResponseEntity<ResponsePayload<?>> resourceCancel(BookingCancelException e){
+		ResponsePayload<Object> res = new ResponsePayload<>(
+				"FAILURE",
+				e.getMessage(),
+				null
+				);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+	}
 }

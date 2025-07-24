@@ -12,5 +12,5 @@ public interface BookingService {
 	
 	public Booking createNewBooking(Booking booking);
 	
-	public Booking cancelBooking(Long bookingId);
+	public Long cancelBooking(Long bookingId);
 }

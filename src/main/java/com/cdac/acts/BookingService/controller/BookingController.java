@@ -3,6 +3,7 @@ package com.cdac.acts.BookingService.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,17 @@ public class BookingController {
 				"SUCCESS" , 
 				"Bookings created successfully" , 
 				createdBooking);
+		
+		return res;
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponsePayload<Long> cancelBooking(@PathVariable Long id){
+		id = bookingService.cancelBooking(id);
+		ResponsePayload<Long> res = new ResponsePayload<Long>(
+				"SUCCESS" , 
+				"Bookings cancelled successfully" , 
+				id);
 		
 		return res;
 	}

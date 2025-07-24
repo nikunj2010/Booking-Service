@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cdac.acts.BookingService.entity.Booking;
+import com.cdac.acts.BookingService.exceptions.BookingCancelException;
 import com.cdac.acts.BookingService.exceptions.BookingNotFoundException;
 import com.cdac.acts.BookingService.exceptions.CreateBookingException;
 import com.cdac.acts.BookingService.repository.BookingRepository;
@@ -54,9 +55,16 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public Booking cancelBooking(Long bookingId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long cancelBooking(Long bookingId) {
+		
+		if(!bookingRepository.existsById(bookingId)) {
+			throw new BookingNotFoundException("No booking found");
+		}
+		if(bookingRepository.findById(bookingId).get().getStatus().equals("CANCELLED")) {
+			throw new BookingCancelException("Booking already cancelled");
+		}
+		bookingRepository.cancelBookingById(bookingId);		
+		return bookingId;
 	}
 
 }
