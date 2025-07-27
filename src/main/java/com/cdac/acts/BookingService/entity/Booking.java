@@ -17,9 +17,6 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "flightId", nullable = false)
-    private Long flightId;
-
     @Column(name = "userId", nullable = false)
     private Long userId;
 
@@ -39,4 +36,8 @@ public class Booking {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "flightId")
+    private Flight flight;
 }
