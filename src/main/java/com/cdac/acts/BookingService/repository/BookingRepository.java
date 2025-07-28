@@ -25,4 +25,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 			nativeQuery = true
 			)
 	void cancelBookingById(@Param("id") Long id);
+	
+	@Query("select b from Booking b where b.status = 'CONFIRMED'")
+	public List<Booking> findAllConfirmedBookings();
+	
+	@Query(value = "select * from bookings where userId = :userId AND status = 'CONFIRMED' ", nativeQuery = true)
+	public List<Booking> findAllConfirmedBookingsByUserId(@Param("userId") Long userId);
+	
 }

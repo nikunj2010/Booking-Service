@@ -21,7 +21,7 @@ public class BookingServiceImpl implements BookingService{
 	@Override
 	public List<Booking> getAllBookings() {
 		// TODO Auto-generated method stub
-		List<Booking> bookings = bookingRepository.findAll();
+		List<Booking> bookings = bookingRepository.findAllConfirmedBookings();
 		
 		if(bookings.size() == 0) {
 			throw new BookingNotFoundException("No booking found");
@@ -32,13 +32,13 @@ public class BookingServiceImpl implements BookingService{
 	@Override
 	public List<Booking> getAllBookingsByUserId(Long userId) {
 		// TODO Auto-generated method stub
-		Optional<List<Booking>> bookings = bookingRepository.findByUserId(userId);
+		List<Booking> bookings = bookingRepository.findAllConfirmedBookingsByUserId(userId);
 		
-		if(bookings.get().size() == 0) {
+		if(bookings.size() == 0) {
 			throw new BookingNotFoundException("No booking found");
 		}
 		
-		return bookings.get();
+		return bookings;
 	}
 
 	@Override
@@ -66,5 +66,4 @@ public class BookingServiceImpl implements BookingService{
 		bookingRepository.cancelBookingById(bookingId);		
 		return bookingId;
 	}
-
 }
