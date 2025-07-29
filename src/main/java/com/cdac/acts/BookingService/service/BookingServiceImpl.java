@@ -56,7 +56,6 @@ public class BookingServiceImpl implements BookingService{
 
 	@Override
 	public Long cancelBooking(Long bookingId) {
-		
 		if(!bookingRepository.existsById(bookingId)) {
 			throw new BookingNotFoundException("No booking found");
 		}
@@ -66,4 +65,15 @@ public class BookingServiceImpl implements BookingService{
 		bookingRepository.cancelBookingById(bookingId);		
 		return bookingId;
 	}
+
+	@Override
+	public boolean checkIfExistsByFlightId(Long flightId) {
+		System.out.println("flight id in booking = " + flightId);
+		if(bookingRepository.existsByFlightId(flightId)) {
+			bookingRepository.cancelBookingsByFlightId(flightId);
+			return true;
+		}
+		return false;
+	}
+	
 }

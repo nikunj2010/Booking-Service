@@ -13,4 +13,6 @@ public interface BookingService {
 	public Booking createNewBooking(Booking booking);
 	
 	public Long cancelBooking(Long bookingId);
+	
+	public boolean checkIfExistsByFlightId(Long flightId);
 }

@@ -32,4 +32,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 	@Query(value = "select * from bookings where userId = :userId AND status = 'CONFIRMED' ", nativeQuery = true)
 	public List<Booking> findAllConfirmedBookingsByUserId(@Param("userId") Long userId);
 	
+	public boolean existsByFlightId(Long flightId);
+	
+	@Modifying
+	@Query(value = "update bookings set status = 'CANCELLED' "
+			+ "where flightId = :flightId AND status = 'CONFIRMED'", nativeQuery = true)
+	public void  cancelBookingsByFlightId(@Param("flightId") Long flightId);
 }
